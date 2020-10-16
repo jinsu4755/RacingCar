@@ -1,5 +1,4 @@
-fun main() {
-}
+package firstweekpractice
 
 data class Test(
     val a: Int,
