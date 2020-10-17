@@ -5,12 +5,30 @@ fun main() {
     val splitedData = inputData.split(" ")
     checkCalculatable(splitedData)
 }
-/**
- * 올바른 값 변환?
- */
-fun checkCalculatable(splitedData : List<String>){
-    if (splitedData.contains("&")){
+
+fun checkCalculatable(splitedData: List<String>) {
+    if (splitedData.contains("&")) {
         throw IllegalArgumentException("사칙연산 기호 쓰셔야 합니다!!!")
     }
-    //TODO 숫자 변환 및 계산하기
+    classify(splitedData)
+}
+
+fun classify(splitedData: List<String>) {
+
+}
+
+fun sumData(a: Int, b: Int): Int {
+    return a + b
+}
+
+fun minusData(a : Int, b : Int) : Int{
+    return a - b
+}
+
+fun multyplyData(a : Int, b : Int) : Int {
+    return a * b
+}
+
+fun divideData(a : Int, b : Int) : Int {
+    return a / b
 }

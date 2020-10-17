@@ -14,23 +14,23 @@ class StringCalculatorTest {
      * 올바른 값 변환?
      */
     @Test
-    fun sumTest(){
-        assertThat(1+2).isEqualTo(3)
+    fun sumDataTest(){
+        assertThat(1+2).isEqualTo(sumData(1,2))
     }
 
     @Test
-    fun minusTest(){
-        assertThat(3-2).isEqualTo(1)
+    fun minusDataTest(){
+        assertThat(3-2).isEqualTo(minusData(3,2))
     }
 
     @Test
-    fun multiplyTest(){
-        assertThat(3*2).isEqualTo(6)
+    fun multiplyDataTest(){
+        assertThat(3*2).isEqualTo(multyplyData(3,2))
     }
 
     @Test
-    fun divideTest(){
-        assertThat(6/2).isEqualTo(3)
+    fun divideDataTest(){
+        assertThat(6/2).isEqualTo(divideData(6,2))
     }
 
     @Test
