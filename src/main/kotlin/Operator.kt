@@ -1,7 +1,7 @@
 import java.lang.IllegalArgumentException
 
 enum class Operator(
-    val symbol: String,
+    private val symbol: String,
     val calculateStrategy: (Int, Int) -> Int
 ) {
     PLUS("+", { left, right -> left + right }),
