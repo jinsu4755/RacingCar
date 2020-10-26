@@ -12,8 +12,6 @@ class OperatorTest {
     @CsvSource("PLUS,4", "MINUS,2", "MULTIPLY,3", "DIVIDE,3")
     fun plusTest(operator: Operator, result: Int) {
         // given
-
-        // when
         val left = 3
         val right = 1
         // then

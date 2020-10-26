@@ -1,6 +1,8 @@
+import org.assertj.core.api.Assertions
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
+import java.lang.IllegalArgumentException
 
 /**
  * 2주차 리팩터링 사고과정
@@ -25,5 +27,12 @@ class StringCalculatorTest {
     fun calculateTest() {
         assertThat(StringCalculator().calculate(listOf("1", "+", "8", "/", "3", "*", "2", "-", "1")))
             .isEqualTo(5)
+    }
+
+    @Test
+    fun changeToNumTest() {
+        Assertions.assertThatThrownBy { StringCalculator().calculate(listOf("1", "+", "+")) }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("해당 문자는 숫자로 변환할 수 없습니다.")
     }
 }
