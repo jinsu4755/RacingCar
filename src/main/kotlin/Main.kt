@@ -1,9 +1,8 @@
 import java.lang.IllegalArgumentException
 
 fun main() {
-    val keyboardInputString = readLine() ?: throw IllegalArgumentException("아무것도 입력하지 않았습니다.")
-    val splitList = keyboardInputString.split(" ")
-    CalculateChecker().checkCalculable(splitList)
+    val keyboardInputString = readLine() ?: throw IllegalArgumentException("입력값은 null일 수 없습니다.")
+    val splitList = SplitString().splitString(keyboardInputString)
     val resultValue = StringCalculator().calculate(splitList)
     print("계산값은 ${resultValue}입니다.")
 }
