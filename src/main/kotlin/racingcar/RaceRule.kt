@@ -1,6 +1,6 @@
 package racingcar
 
-object RaceRule{
+object RaceRule {
     private val randomRange = IntRange(0, 9)
     private const val ruleNumber = 4
 
