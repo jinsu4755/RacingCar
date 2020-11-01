@@ -4,7 +4,7 @@ class Car {
     private var distanceGraph: String = ""
 
     fun run() {
-        if(RaceRule.checkIfCarRun()){
+        if (RaceRule.checkIfCarRun()) {
             distanceGraph += ONE_DISTANCE
         }
     }
