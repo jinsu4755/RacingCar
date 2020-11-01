@@ -19,7 +19,7 @@ class Cars(carNum: Int) {
 
     fun getDistanceGraph(): String {
         var distanceGraph = ""
-        carList.forEach {car ->
+        carList.forEach { car ->
             distanceGraph = distanceGraph + car.getDistanceGraph() + NEW_LINE
         }
         return distanceGraph
