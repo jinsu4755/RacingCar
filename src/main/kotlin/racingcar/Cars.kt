@@ -13,11 +13,11 @@ class Cars(carNum: Int) {
         }
     }
 
-    fun run(carIndex: Int) {
-        carList[carIndex].run()
+    fun run() {
+        carList.forEach { car ->
+            car.run()
+        }
     }
 
     fun getCars(): List<Car> = carList.toList()
-
-    fun size() = carList.size
 }

@@ -6,7 +6,7 @@ class Race(private val cars: Cars, private val raceRound: Int) {
     fun start(): RaceGraph {
         val raceGraph = RaceGraph()
         repeat(raceRound) {
-            runCars(cars)
+            cars.run()
             raceGraph.record(cars)
         }
         return raceGraph
