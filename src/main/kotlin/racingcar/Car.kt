@@ -1,17 +1,17 @@
 package racingcar
 
 class Car {
-    private var distanceGraph: String = ""
+    private var distance = 0
 
     fun run() {
         if (RaceRule.checkIfCarRun()) {
-            distanceGraph += ONE_DISTANCE
+            distance += ONE_DISTANCE
         }
     }
 
-    fun getDistanceGraph() = distanceGraph
+    fun getDistance() = distance
 
     companion object {
-        const val ONE_DISTANCE = "-"
+        const val ONE_DISTANCE = 1
     }
 }
