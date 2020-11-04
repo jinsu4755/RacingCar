@@ -1,25 +1,18 @@
 package racingcar
 
-class Race(private val carNum: Int, private val raceNum: Int) {
-    fun start(): String {
-        val cars = Cars(carNum)
-        var fullRecord = ""
-        for (i in 0 until raceNum) {
+class Race(private val cars: Cars, private val raceRound: Int) {
+    fun start(): RaceGraph {
+        val raceGraph = RaceGraph()
+        repeat(raceRound) {
             runCars(cars)
-            fullRecord = fullRecord + cars.getDistanceGraph() + NEW_LINE
+            raceGraph.draw(cars)
         }
-        return fullRecord
+        return raceGraph
     }
 
     private fun runCars(cars: Cars) {
-        for (carIndex in 0 until carNum) {
-            if (RaceRule.checkIfCarRun()) {
-                cars.run(carIndex)
-            }
+        repeat(cars.size()) { carIndex ->
+            cars.run(carIndex)
         }
-    }
-
-    companion object {
-        private const val NEW_LINE = "\n"
     }
 }
