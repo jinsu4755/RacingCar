@@ -8,7 +8,7 @@ class Cars(carNum: Int) {
     }
 
     private fun createCar(carNum: Int) {
-        for (i in 0 until carNum) {
+        repeat(carNum) {
             carList.add(Car())
         }
     }
@@ -17,15 +17,7 @@ class Cars(carNum: Int) {
         carList[carIndex].run()
     }
 
-    fun getDistanceGraph(): String {
-        var distanceGraph = ""
-        carList.forEach { car ->
-            distanceGraph = distanceGraph + car.getDistanceGraph() + NEW_LINE
-        }
-        return distanceGraph
-    }
+    fun getCars(): List<Car> = carList.toList()
 
-    companion object {
-        private const val NEW_LINE = "\n"
-    }
+    fun size() = carList.size
 }
