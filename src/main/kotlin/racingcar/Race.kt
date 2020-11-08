@@ -1,14 +1,14 @@
 package racingcar
 
-import racingcar.view.RaceGraph
-
-class Race(private val cars: Cars, private val raceRound: Int) {
-    fun start(): RaceGraph {
-        val raceGraph = RaceGraph()
+object Race {
+    fun start(cars: Cars, raceRound: Int): RaceRecord {
+        val raceRecord = RaceRecord()
         repeat(raceRound) {
             cars.run()
-            raceGraph.record(cars)
+            val roundRecord = RoundRecord()
+            roundRecord.record(cars)
+            raceRecord.add(roundRecord)
         }
-        return raceGraph
+        return raceRecord
     }
 }
