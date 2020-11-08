@@ -1,20 +1,11 @@
 package racingcar
 
-class RacingCar(numberOfAttempts: Int) {
+class RacingCar(private val carName: String, numberOfAttempts: Int, private val movingCondition: MovingCondition) {
     private val carMotionStatus = MutableList(numberOfAttempts) { true }
-
-    private fun decideMoveOrStay(randomNumber: Int): Boolean = randomNumber >= MOVE_FLAG
-
-    private fun decideCarStatus(): Boolean {
-        val randomNumberGenerator = RandomNumberGenerator()
-        val givenRandomNumber = randomNumberGenerator.sendRandomNumber()
-        require(givenRandomNumber in 0..9) { "무작위로 주어진 값이 잘못 설정되었습니다." }
-        return decideMoveOrStay(givenRandomNumber)
-    }
 
     fun moveCar() {
         for (index in carMotionStatus.indices) {
-            carMotionStatus[index] = decideCarStatus()
+            carMotionStatus[index] = movingCondition.satisfy()
         }
     }
 
@@ -24,7 +15,7 @@ class RacingCar(numberOfAttempts: Int) {
         return copyOfCarMotionStatus
     }
 
-    companion object {
-        private const val MOVE_FLAG = 4
-    }
+    fun getCarName(): String = carName
+
+    fun getNumOfAttempts(): Int = carMotionStatus.size
 }
