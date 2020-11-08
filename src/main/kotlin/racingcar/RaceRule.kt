@@ -1,11 +1,8 @@
 package racingcar
 
 object RaceRule {
-    private val randomRange = IntRange(0, 9)
-    private const val RULE_NUMBER = 4
+    private val RANDOM_RANGE = IntRange(0, 9)
+    const val RULE_NUMBER = 4
 
-    fun checkIfCarRun(): Boolean {
-        val randomNum = randomRange.random()
-        return randomNum >= RULE_NUMBER
-    }
+    fun getRandomNum() = RANDOM_RANGE.random()
 }
