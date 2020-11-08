@@ -1,9 +1,11 @@
 package racingCar
 
 class Car(
+    private val name: String,
     private val accelerator: Accelerator
 ) {
     private var distance = 0
+    fun getName(): String = name
     fun getDistance(): Int = distance
     fun move() {
         if (accelerator.canMove())

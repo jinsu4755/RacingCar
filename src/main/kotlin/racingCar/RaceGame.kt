@@ -1,7 +1,7 @@
 package racingCar
 
 class RaceGame {
-    private lateinit var raceResults: MutableList<List<Int>>
+    private lateinit var raceResults: MutableList<Map<String, Int>>
 
     fun race(cars: Cars, raceCount: Int) {
         raceResults = mutableListOf()
@@ -11,7 +11,13 @@ class RaceGame {
         }
     }
 
-    fun getGameResult(): List<List<Int>> {
+    fun getGameResult(): List<Map<String, Int>> {
         return raceResults
+    }
+
+    fun getGameWinner(): Set<String> {
+        var lastRace = raceResults[raceResults.size - 1]
+        val maxDistance = lastRace.maxByOrNull { it.value }!!.value
+        return lastRace.filterValues { distance -> distance == maxDistance }.keys
     }
 }

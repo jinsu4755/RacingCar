@@ -9,10 +9,10 @@ class Cars(
         }
     }
 
-    fun getDistance(): List<Int> {
-        val distanceOfCars = mutableListOf<Int>()
+    fun getDistance(): Map<String, Int> {
+        val distanceOfCars = mutableMapOf<String, Int>()
         cars.forEach { car ->
-            distanceOfCars.add(car.getDistance())
+            distanceOfCars[car.getName()] = car.getDistance()
         }
         return distanceOfCars
     }
