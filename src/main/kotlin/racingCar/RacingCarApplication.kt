@@ -2,20 +2,23 @@ package racingCar
 
 import racingCar.view.getNumberOfCar
 import racingCar.view.getNumberOfTry
+import racingCar.view.printGameResult
 
 fun main() {
-    val numberOfCar = getNumberOfCar()
-    val numberOfTry = getNumberOfTry()
-    val cars = makeCars(numberOfCar)
-    val racingCar = RacingCar(cars, numberOfTry)
-    println("실행결과")
-    racingCar.race()
+    val carCount = getNumberOfCar()
+    val raceCount = getNumberOfTry()
+    val cars = CarFactory.create(carCount)
+    val raceGame = RaceGame()
+    raceGame.race(cars, raceCount)
+    printGameResult(raceGame.getGameResult())
 }
 
-fun makeCars(numberOfCar: Int): Cars {
-    val cars = mutableListOf<Car>()
-    repeat(numberOfCar) {
-        cars.add(Car())
+object CarFactory {
+    fun create(carCount: Int): Cars {
+        val cars = mutableListOf<Car>()
+        repeat(carCount) {
+            cars.add(Car(RandomAccelerator()))
+        }
+        return Cars(cars)
     }
-    return Cars(cars)
 }
