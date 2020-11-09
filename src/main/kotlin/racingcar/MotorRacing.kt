@@ -23,7 +23,7 @@ class MotorRacing(namesOfCar: MutableList<String>, numberOfAttempts: Int) {
             racingCar.moveCar()
         }
     }
-
+  
     fun getResultOfCarList(): MutableList<RacingCar> {
         val copyCarList = mutableListOf<RacingCar>()
         copyCarList.addAll(racingCars)

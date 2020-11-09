@@ -20,7 +20,7 @@ class ResultView {
                 println(NEWLINE_DELIMITER)
             }
         }
-
+      
         private fun printCarStageResult(resultOfRacing: CarStatus, stage: Int) {
             repeat(resultOfRacing.second.size) { car ->
                 val subList = resultOfRacing.second[car].subList(0, stage + 1)
