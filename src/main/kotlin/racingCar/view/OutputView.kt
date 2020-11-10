@@ -1,19 +1,25 @@
 package racingCar.view
 
-fun printGameWinner(winners: Set<String>) {
+import racingCar.racing.GameResult
+import racingCar.record.CapturedCar
+import racingCar.record.CarsRecord
+
+fun printWinner(winners: List<CapturedCar>) {
+    println()
     println(winners.joinToString(separator = ", ") + "가 최종 우승했습니다.")
 }
 
-fun printGameResult(gameResult: List<Map<String, Int>>) {
-    gameResult.forEach { raceResult ->
+fun printGameResult(gameResult: GameResult) {
+    gameResult.record.forEach { roundResult ->
         println()
-        printRaceResult(raceResult)
+        printRoundResult(roundResult)
     }
+    printWinner(gameResult.getWinner())
 }
 
-fun printRaceResult(raceResult: Map<String, Int>) {
-    raceResult.forEach { distanceOfCar ->
-        println(distanceOfCar.key + ":" + distanceToLine(distanceOfCar.value))
+fun printRoundResult(roundResult: CarsRecord) {
+    roundResult.carsRecord.forEach { capturedCar ->
+        println(capturedCar.name + ":" + distanceToLine(capturedCar.distance))
     }
 }
 

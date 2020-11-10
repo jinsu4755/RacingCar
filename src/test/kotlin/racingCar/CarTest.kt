@@ -2,36 +2,27 @@ package racingCar
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
+import racingCar.car.Accelerator
+import racingCar.car.Car
 
 class CarTest {
-    @DisplayName("랜덤값이 모두 조건을 만족할 때 차가 움직이는지 테스트")
-    @Test
-    fun moveSuccessTest() {
+    @DisplayName("조건에 따라서 차가 움직이는지 테스트")
+    @ParameterizedTest
+    @CsvSource("true,3", "false,0")
+    fun moveSuccessTest(canMove: Boolean, moveCount: Int) {
         val car = Car(
             "testCar",
             object : Accelerator {
                 override fun canMove(): Boolean {
-                    return true
+                    return canMove
                 }
             }
         )
-        repeat(3) { car.move() }
-        assertThat(car.getDistance()).isEqualTo(3)
-    }
-
-    @DisplayName("랜덤값이 모두 조건을 만족하지 못할 때 차가 움직이는지 테스트")
-    @Test
-    fun moveFailTest() {
-        val car = Car(
-            "testCar",
-            object : Accelerator {
-                override fun canMove(): Boolean {
-                    return false
-                }
-            }
-        )
-        repeat(5) { car.move() }
-        assertThat(car.getDistance()).isEqualTo(0)
+        car.move()
+        car.move()
+        car.move()
+        assertThat(car.getDistance()).isEqualTo(moveCount)
     }
 }
