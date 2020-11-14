@@ -1,12 +1,7 @@
 package racingcar
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.DynamicTest
-import org.junit.jupiter.api.TestFactory
-import java.util.stream.Stream
+import org.junit.jupiter.api.Test
 
 /**
  * > 요구사항
@@ -51,35 +46,50 @@ import java.util.stream.Stream
  * 자동자 A, B객체 생성
  *      A 자동차 -> 현재 스텝 정보, 한칸 갈지 말지 시도하는 로직 필요.
  *
+ *
+ * [step3 과제]
+ * 누가 우승했는지 알려줘야 하며, 한 명이상 우승 가능
+ *
+ * <요구사항 분석>
+ *     InputView - 자동차 이름 입력 받아 데이터 전달
+ *                  1. 입력받은 문자열을 , 기준으로 쪼갬
+ *                  2. 쪼갠 문자열 모두 5자 이하인지 검증
+ *               - 몇 회 진행할지 입력받아 데이터 전달
+ *                  1. 숫자 검증
+ *          갖게 되는 값들 : 차 이름 리스트, 시도 횟수
+ *
+ *     CarFactory에서 RacingCar 생산하기
+ *          - 리스트 수만큼 생산 잘 하는지 테스트
+ *     RacingZone에서 경주 시작하기
+ *          - 경주 횟수만큼 진행
+ *          - 랜덤숫자 RacingCar에 전달
+ *          - 한 턴씩 RacingCar 달리기
+ *                      - 거리
+ *                          랜덤 숫자 건네받아 갈지말지 결정
+ *          - 레이싱이 끝나면 각 RacingCar별 기록을 갖고있는 것이 필요 ex) A : 3, B : 2 이런식
+ *     OutputView - 레이스별 기록을 가진 데이터를 전해받아 A : -- 이런 형태로 표시하면 될듯
  */
 class RacingCarTest {
-    @DisplayName("전진했을 때 carStep이 변하는지 테스트")
-    @TestFactory
-    fun tryGoForwardTest(): Stream<DynamicTest> {
-        //given
-        val racingCar = RacingCar()
-        var carStepList: List<String> = racingCar.getCarStepList()
+    @Test
+    fun getCarNameTest() {
+        // given
+        val racingCar = RacingCar("myCar")
+        // when
 
-        //when
-        val tryGoForwardGenerator = object : Iterator<List<String>> {
-            override fun hasNext(): Boolean {
-                carStepList = racingCar.getCarStepList()
-                racingCar.tryGoForward()
-                return carStepList != racingCar.getCarStepList()
-            }
-
-            override fun next(): List<String> {
-                return carStepList
-            }
-        }
-
-        val displayStepGenerator: (steps: List<String>) -> String = { steps -> "step:$steps" }
-
-        val testExecutor: (steps: List<String>) -> Unit = { steps ->
-            assertThat(steps).isNotEqualTo(racingCar.getCarStepList())
-        }
-
-        //then
-        return DynamicTest.stream(tryGoForwardGenerator, displayStepGenerator, testExecutor)
+        // then
+        assertThat(racingCar.getCarName()).isEqualTo("myCar")
     }
+
+    @Test
+    fun tryGoForwardTest() {
+        // given
+        val racingCar = RacingCar("myCar")
+
+        // when
+        racingCar.tryGoForward(3)
+
+        // then
+        assertThat(racingCar.carStep).isEqualTo(0)
+    }
+
 }

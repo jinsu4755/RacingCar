@@ -5,14 +5,17 @@ import racingcar.view.ResultView
 
 fun main() {
     val inputView = InputView()
-    val numOfCar = inputView.getNumOfCar()
+    val carsWithName = inputView.getCarsWithName()
     val numOfTry = inputView.getNumOfTry()
 
-    val racingCars = RacingCars(numOfCar)
+    val carFactory = CarFactory()
+    val racingCars = carFactory.makeCars(carsWithName)
 
     val racingZone = RacingZone()
-    val resultOfRace = racingZone.startRaceAndGetResult(racingCars.getCurrentCarList(), numOfTry)
+    val carMover = CarMover()
+    val resultOfRace = racingZone.startRaceAndGetResult(racingCars, numOfTry, carMover)
 
     val resultView = ResultView()
-    resultView.showResult(resultOfRace)
+    val numOfCar = carsWithName.size
+    resultView.showResult(resultOfRace, numOfCar)
 }
