@@ -1,16 +1,15 @@
 package racingcar
 
-class RacingCarTracks {
-    private val racingCarsOnTheTrack: MutableList<Car> = mutableListOf()
+import racingcar.view.RacingResult
 
-    fun prepareForRacingTrack(numberOfCar: Int) {
-        for (i in 0 until numberOfCar) {
-            val car = Car()
-            racingCarsOnTheTrack.add(car)
+class RacingCarTracks(
+    private val racingParticipatingCars: RacingParticipatingCars
+) {
+    fun race(numberOfAttempt: Int) {
+        repeat(numberOfAttempt) {
+            racingParticipatingCars.oneCycleOfRace()
+            RacingResult().showOneCycleResult(racingParticipatingCars.raceStatus())
         }
-    }
-
-    fun getRacingCarsOnTheTrack(): List<Car> {
-        return racingCarsOnTheTrack.toList()
+        RacingResult().showRacingWinner(racingParticipatingCars.getRacingWinner())
     }
 }

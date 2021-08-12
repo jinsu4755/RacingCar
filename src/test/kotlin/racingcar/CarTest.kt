@@ -1,45 +1,31 @@
 package racingcar
 
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.DynamicTest
-import org.junit.jupiter.api.TestFactory
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import java.util.stream.Stream
-import kotlin.random.Random
 
 internal class CarTest {
 
     @ParameterizedTest
-    @CsvSource("0", "1", "2", "3")
-    fun carControlCaseMoveForward(controlNumber: Int) {
+    @CsvSource("true,1", "false,0")
+    fun `움직이는 조건이 맞으면 자동차가 움직이는지 테스트`(movableStatus: Boolean, changedDistance: Int) {
         // given
-        val testCar = Car()
-        val movementDistance = testCar.move()
+        val car = Car("12345") { movableStatus }
+        // when
+        car.move()
+        // than
+        assertThat(car.movementDistance).isEqualTo(changedDistance)
     }
 
-    @TestFactory
-    fun `랜덤한 값이 4 이상이면 자동차가 움직이는지 확인`(): Stream<DynamicTest> {
-        val car = Car()
-        val inputGenerator = object : Iterator<Int> {
-            var current = 0
-            var distance = 0
-
-            override fun hasNext(): Boolean {
-                current = Random.nextInt(10)
-                car.movingController(current)
-                return current >= 4
-            }
-
-            override fun next(): Int {
-                return ++distance
-            }
-        }
-        val displayNameGenerator: (a: Int) -> String = { input -> "input:$input" }
-        val testExecutor: (a: Int) -> Unit = { input ->
-            assertTrue(car.getMovementDistance() == input)
-        }
-
-        return DynamicTest.stream(inputGenerator, displayNameGenerator, testExecutor)
+    @Test
+    fun `자동차 이름이 5자를 초과하면 Exception 이 뜨는지 확인`() {
+        // given
+        val carName = "123456"
+        // than
+        assertThatThrownBy { Car(carName, RacingCarMoveController()) }
+            .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessage("자동차 이름으로 ${Car.MAX_CAR_LENGTH}자를 넘길 수 없습니다. $carName 은/는 ${carName.length} 글자 입니다.")
     }
 }
