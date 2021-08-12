@@ -1,11 +1,19 @@
 package racingcar
 
-class MotorRacing(amountOfCars: Int, numberOfAttempts: Int) {
+class MotorRacing(namesOfCar: MutableList<String>, numberOfAttempts: Int) {
     private val racingCars = mutableListOf<RacingCar>()
 
     init {
-        for (index in 0 until amountOfCars) {
-            racingCars.add(RacingCar(numberOfAttempts))
+        for (index in 0 until namesOfCar.size) {
+            racingCars.add(
+                RacingCar(
+                    namesOfCar[index],
+                    numberOfAttempts,
+                    object : MovingCondition {
+                        override fun satisfy() = RandomNumberGenerator.get(MAX_NUMBER + 1) > MOVE_FLAG
+                    }
+                )
+            )
         }
         carRacing()
     }
@@ -15,11 +23,15 @@ class MotorRacing(amountOfCars: Int, numberOfAttempts: Int) {
             racingCar.moveCar()
         }
     }
+  
+    fun getResultOfCarList(): MutableList<RacingCar> {
+        val copyCarList = mutableListOf<RacingCar>()
+        copyCarList.addAll(racingCars)
+        return copyCarList
+    }
 
-    fun getResultOfRacing(): MutableList<MutableList<Boolean>> {
-        val resultOfRacingCars = mutableListOf<MutableList<Boolean>>()
-        for (racingCar in racingCars)
-            resultOfRacingCars.add(racingCar.getResultOfMoving())
-        return resultOfRacingCars
+    companion object {
+        private const val MOVE_FLAG = 4
+        private const val MAX_NUMBER = 9
     }
 }
