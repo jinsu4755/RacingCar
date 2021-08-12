@@ -2,31 +2,20 @@ package racingcar
 
 class RacingZone {
 
-    fun startRaceAndGetResult(carList: MutableList<RacingCar>, numOfTry: Int): String {
-        var resultOfRace = ""
-        repeat(numOfTry){
-            runOneCycle(carList)
-            resultOfRace += getOneCycleResult(carList) + LINE_SPACE
+    private val resultOfRace = mutableListOf<Pair<String, Int>>()
+    fun startRaceAndGetResult(carList: List<RacingCar>, numOfTry: Int, carMover: CarMover): List<Pair<String, Int>> {
+        repeat(numOfTry) {
+            runOneCycle(carList, carMover)
         }
         return resultOfRace
     }
 
-    private fun runOneCycle(carList: MutableList<RacingCar>) {
+    private fun runOneCycle(carList: List<RacingCar>, carMover: CarMover) {
         carList.forEach { racingCar ->
-            racingCar.tryGoForward()
+            racingCar.tryGoForward(carMover.canMove())
+            val carName = racingCar.getCarName()
+            val carStep = racingCar.carStep
+            resultOfRace.add(Pair(carName, carStep))
         }
-    }
-
-    private fun getOneCycleResult(carList: MutableList<RacingCar>): String {
-        var resultOfOneCycle = ""
-        carList.forEach { racingCar ->
-            val cycleOfOneCar = racingCar.getCarStepList().joinToString(separator = "")
-            resultOfOneCycle += (cycleOfOneCar + LINE_SPACE)
-        }
-        return resultOfOneCycle
-    }
-
-    companion object {
-        const val LINE_SPACE = "\n"
     }
 }

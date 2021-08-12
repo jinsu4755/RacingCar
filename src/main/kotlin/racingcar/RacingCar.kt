@@ -1,16 +1,20 @@
 package racingcar
 
 class RacingCar(
-    private val carStepList: MutableList<String> = mutableListOf()
+    private val carName: String
 ) {
-    private val oneStepGoOrNot = OneStepGoOrNot()
-    fun tryGoForward() {
-        if (oneStepGoOrNot.judgeCanGo()) {
-            carStepList.add("-")
-        }
+    var carStep = 0
+        private set
+
+    fun tryGoForward(randomNum: Int) {
+        if (randomNum > CAN_MOVE_NUM) carStep++
     }
 
-    fun getCarStepList(): List<String> {
-        return carStepList.toList()
+    fun getCarName(): String {
+        return carName
+    }
+
+    companion object {
+        const val CAN_MOVE_NUM = 4
     }
 }
