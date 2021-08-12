@@ -1,34 +1,53 @@
 package racingcar
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
 class CarsTest {
-    @Test
-    fun `자동차들의 달리기 함수 체크`() {
+    @ParameterizedTest
+    @CsvSource("3")
+    fun `자동차 추가하는 함수 체크`(carNum: Int) {
         // given
-        val cars = Cars(3)
+        val cars = Cars()
+
         // when
-        for (i in 0 until 3) {
-            cars.run(i)
+        repeat(carNum) {
+            val car = Car(object : Checker {
+                override fun checkIfRun() = true
+            })
+            cars.add(car)
         }
-        val result = cars.getDistanceGraph()
+
         // then
-        assertThat(result)
-            .isEqualTo("-\n-\n-\n")
+        assertThat(
+            cars.get()
+                .size
+        ).isEqualTo(carNum)
     }
 
-    @Test
-    fun `자동차들의 현재 기록 반환함수`() {
+    @ParameterizedTest
+    @CsvSource("5, 7")
+    fun `자동차들의 달리기 함수 체크`(carNum: Int, runTime: Int) {
         // given
-        val cars = Cars(3)
+        val cars = Cars()
+
         // when
-        for (i in 0 until 3) {
-            cars.run(i)
+        repeat(carNum) {
+            val car = Car(object : Checker {
+                override fun checkIfRun() = true
+            })
+            car.run(runTime)
+            cars.add(car)
         }
-        val result = cars.getDistanceGraph()
+
+        val carsList = cars.get()
+
         // then
-        assertThat(result)
-            .isEqualTo("-\n-\n-\n")
+
+        carsList.forEach { car ->
+            assertThat(car.distance)
+                .isEqualTo(7)
+        }
     }
 }

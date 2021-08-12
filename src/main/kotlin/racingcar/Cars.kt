@@ -1,16 +1,10 @@
 package racingcar
 
-class Cars(carNum: Int) {
+class Cars() {
     private val carList = mutableListOf<Car>()
 
-    init {
-        createCar(carNum)
-    }
-
-    private fun createCar(carNum: Int) {
-        repeat(carNum) {
-            carList.add(Car())
-        }
+    fun add(car: Car) {
+        carList.add(car)
     }
 
     fun run() {
@@ -19,5 +13,5 @@ class Cars(carNum: Int) {
         }
     }
 
-    fun getCars(): List<Car> = carList.toList()
+    fun get(): List<Car> = carList.toList()
 }
